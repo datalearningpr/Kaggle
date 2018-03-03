@@ -263,7 +263,7 @@ print(classification_report(y_test, grid_search.predict(sc.transform(x_test)),
 import xgboost as xgb
 
 model = xgb.XGBClassifier(n_estimators = 300, objective = 'multi:softmax') # "binary:logistic"
-parameter_grid = {  'colsample_bytree': [0.4, 0.5 0.6],
+parameter_grid = {  'colsample_bytree': [0.4, 0.5, 0.6],
                     'max_depth': [3, 6, 8, 9],
                     'learning_rate': [0.1]}
 
