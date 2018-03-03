@@ -202,9 +202,9 @@ print(classification_report(y_test, grid_search.predict(sc.transform(x_test)),
 from sklearn.ensemble import RandomForestClassifier
 
 model = RandomForestClassifier(max_features = 'sqrt', n_jobs = -1)
-parameter_grid = {  'n_estimators': [100, 200, 500],
+parameter_grid = {  'n_estimators': [500],
                     'criterion': ['gini', 'entropy'],
-                    'max_depth': [2, 3, 4]}
+                    'min_samples_leaf': [1, 10, 50]}
 grid_search = GridSearchCV(model, param_grid = parameter_grid, cv = 3, n_jobs = -1)
 grid_search.fit(x_train, y_train)
 
@@ -241,9 +241,9 @@ print(classification_report(y_test, grid_search.predict(sc.transform(x_test)),
 from sklearn.ensemble import GradientBoostingClassifier
 
 model = GradientBoostingClassifier(n_estimators = 300)
-parameter_grid = {  'learning_rate': [0.05, 0.1, 0.15, 0.2],
+parameter_grid = {  'learning_rate': [0.1],
                     'loss': ['deviance'],  # 'exponential'
-                    'max_depth': [2, 3, 4, 5],
+                    'max_depth': [3, 6, 8, 9],
                     'max_features': ['auto', 'sqrt', 'log2']}
 
 grid_search = GridSearchCV(model, param_grid = parameter_grid, cv = 3, n_jobs = -1)
@@ -263,10 +263,9 @@ print(classification_report(y_test, grid_search.predict(sc.transform(x_test)),
 import xgboost as xgb
 
 model = xgb.XGBClassifier(n_estimators = 300, objective = 'multi:softmax') # "binary:logistic"
-parameter_grid = {  'reg_alpha': [0],
-                    'reg_lambda': np.logspace(-4,0,5),
-                    'max_depth': [3, 4, 5, 6],
-                    'learning_rate': [0.1, 0.2, 0.3]}
+parameter_grid = {  'colsample_bytree': [0.4, 0.5 0.6],
+                    'max_depth': [3, 6, 8, 9],
+                    'learning_rate': [0.1]}
 
 grid_search = GridSearchCV(model, param_grid = parameter_grid, cv = 3, n_jobs = -1)
 grid_search.fit(x_train, y_train)

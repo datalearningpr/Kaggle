@@ -215,9 +215,9 @@ metrics.r2_score(np.log(y_test), grid_search.predict(sc.transform(x_test)))
 from sklearn.ensemble import RandomForestRegressor
 
 model = RandomForestRegressor(max_features = 'sqrt', n_jobs = -1)
-parameter_grid = {  'n_estimators': [100, 200, 500],
+parameter_grid = {  'n_estimators': [500],
                     'criterion': ['mse', 'mae'],
-                    'max_depth': [3, 4, 5, 6, 7, 8]}
+                    'min_samples_leaf': [1, 10, 50]}
 grid_search = GridSearchCV(model, param_grid = parameter_grid, cv = 3, n_jobs = -1)
 grid_search.fit(x_train, np.log(y_train))
 
@@ -287,9 +287,9 @@ metrics.r2_score(np.log(y_test), grid_search.predict(sc.transform(x_test)))
 from sklearn.ensemble import GradientBoostingRegressor
 
 model = GradientBoostingRegressor(n_estimators = 300)
-parameter_grid = {  'learning_rate': [0.05, 0.1, 0.15, 0.2],
+parameter_grid = {  'learning_rate': [0.1],
                     'loss': ['ls', 'lad', 'huber', 'quantile'],
-                    'max_depth': [3, 4, 5],
+                    'max_depth': [3, 6, 8, 9],
                     'max_features': ['auto', 'sqrt', 'log2']}
 
 grid_search = GridSearchCV(model, param_grid = parameter_grid, cv = 3, n_jobs = -1)
@@ -312,10 +312,9 @@ metrics.r2_score(np.log(y_test), grid_search.predict(sc.transform(x_test)))
 import xgboost as xgb
 
 model = xgb.XGBRegressor(n_estimators = 300, objective = 'reg:linear')
-parameter_grid = {  'reg_alpha': [0],
-                    'reg_lambda': np.logspace(-4,0,5),
-                    'max_depth': [3, 4, 5, 6],
-                    'learning_rate': [0.2, 0.3, 0.4]}
+parameter_grid = {  'colsample_bytree': [0.4, 0.5 0.6],
+                    'max_depth': [3, 6, 8, 9],
+                    'learning_rate': [0.1]}
 
 grid_search = GridSearchCV(model, param_grid = parameter_grid, cv = 3, n_jobs = -1)
 grid_search.fit(x_train, np.log(y_train))
